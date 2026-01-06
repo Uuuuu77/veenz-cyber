@@ -18,6 +18,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import ServiceCard from "@/components/ServiceCard";
+import { ScrollFade, StaggerContainer, StaggerItem } from "@/components/ScrollAnimation";
 
 const cyberServices = [
   {
@@ -131,73 +132,81 @@ const Services = () => {
     <div className="py-12 md:py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <ScrollFade className="text-center mb-16">
           <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Our Services
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Comprehensive cyber, printing, e-citizen, and digital services all under one roof.
           </p>
-        </div>
+        </ScrollFade>
 
         {/* Cyber & Printing */}
         <section className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollFade className="flex items-center gap-3 mb-8">
             <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Printer className="h-5 w-5 text-primary" />
             </div>
             <h2 className="text-2xl font-bold text-foreground">Cyber & Printing</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          </ScrollFade>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {cyberServices.map((service, index) => (
-              <ServiceCard key={index} {...service} variant="primary" />
+              <StaggerItem key={index}>
+                <ServiceCard {...service} variant="primary" />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
         {/* E-Citizen Services */}
         <section className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollFade className="flex items-center gap-3 mb-8">
             <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
               <FileCheck className="h-5 w-5 text-accent" />
             </div>
             <h2 className="text-2xl font-bold text-foreground">E-Citizen Services</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          </ScrollFade>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {ecitizenServices.map((service, index) => (
-              <ServiceCard key={index} {...service} variant="accent" />
+              <StaggerItem key={index}>
+                <ServiceCard {...service} variant="accent" />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
         {/* Branding & Merchandise */}
         <section className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollFade className="flex items-center gap-3 mb-8">
             <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Shirt className="h-5 w-5 text-primary" />
             </div>
             <h2 className="text-2xl font-bold text-foreground">Branding & Merchandise</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          </ScrollFade>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {brandingServices.map((service, index) => (
-              <ServiceCard key={index} {...service} variant="primary" />
+              <StaggerItem key={index}>
+                <ServiceCard {...service} variant="primary" />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
         {/* Entertainment & Media */}
         <section>
-          <div className="flex items-center gap-3 mb-8">
+          <ScrollFade className="flex items-center gap-3 mb-8">
             <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
               <Music className="h-5 w-5 text-accent" />
             </div>
             <h2 className="text-2xl font-bold text-foreground">Entertainment & Media</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          </ScrollFade>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {entertainmentServices.map((service, index) => (
-              <ServiceCard key={index} {...service} variant="accent" />
+              <StaggerItem key={index}>
+                <ServiceCard {...service} variant="accent" />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
       </div>
     </div>
