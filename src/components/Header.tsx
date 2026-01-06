@@ -1,0 +1,109 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
+
+const Header = () => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <span className="text-xl font-black tracking-tight">
+            <span className="text-primary">VEENZ</span>
+            <span className="text-accent"> CYBER</span>
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive(link.path)
+                  ? "text-primary"
+                  : "text-muted-foreground"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <Button asChild variant="outline" size="sm">
+            <a href="tel:+254708384500">Call Now</a>
+          </Button>
+          <Button asChild size="sm" className="bg-accent hover:bg-accent/90">
+            <a
+              href="https://wa.me/254708384500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp
+            </a>
+          </Button>
+        </div>
+
+        {/* Mobile Menu */}
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild className="md:hidden">
+            <Button variant="ghost" size="icon">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[280px]">
+            <nav className="flex flex-col gap-4 mt-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setOpen(false)}
+                  className={`text-lg font-medium transition-colors hover:text-primary ${
+                    isActive(link.path)
+                      ? "text-primary"
+                      : "text-foreground"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <hr className="my-4" />
+              <Button asChild className="w-full">
+                <a href="tel:+254708384500">Call Now</a>
+              </Button>
+              <Button asChild className="w-full bg-accent hover:bg-accent/90">
+                <a
+                  href="https://wa.me/254708384500"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp Us
+                </a>
+              </Button>
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
