@@ -1,6 +1,7 @@
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
 
 const contactInfo = [
   {
@@ -31,92 +32,98 @@ const Contact = () => {
     <div className="py-12 md:py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <ScrollFade className="text-center mb-16">
           <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
             Contact Us
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             We'd love to hear from you. Reach out via phone, WhatsApp, or visit our shop in Embakasi.
           </p>
-        </div>
+        </ScrollFade>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <div className="space-y-6">
+          <StaggerContainer className="space-y-6">
             {/* WhatsApp CTA */}
-            <Card className="border-accent/30 bg-accent/5">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4">
-                  <div className="h-14 w-14 rounded-xl bg-accent/10 flex items-center justify-center">
-                    <MessageCircle className="h-7 w-7 text-accent" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-bold text-foreground text-lg">Chat on WhatsApp</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Quick responses, even after hours
-                    </p>
-                  </div>
-                  <Button asChild className="bg-accent hover:bg-accent/90">
-                    <a
-                      href="https://wa.me/254708384500"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open Chat
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Other Contact Methods */}
-            {contactInfo.map((item, index) => (
-              <Card key={index}>
+            <StaggerItem>
+              <Card className="border-accent/30 bg-accent/5">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <item.icon className="h-6 w-6 text-primary" />
+                    <div className="h-14 w-14 rounded-xl bg-accent/10 flex items-center justify-center">
+                      <MessageCircle className="h-7 w-7 text-accent" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm text-muted-foreground">{item.label}</p>
-                      <p className="font-semibold text-foreground">{item.value}</p>
+                      <h3 className="font-bold text-foreground text-lg">Chat on WhatsApp</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Quick responses, even after hours
+                      </p>
                     </div>
-                    {item.href && (
-                      <Button asChild variant="outline" size="sm">
-                        <a href={item.href}>{item.action}</a>
-                      </Button>
-                    )}
+                    <Button asChild className="bg-accent hover:bg-accent/90">
+                      <a
+                        href="https://wa.me/254708384500"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Open Chat
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
+            </StaggerItem>
+
+            {/* Other Contact Methods */}
+            {contactInfo.map((item, index) => (
+              <StaggerItem key={index}>
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <item.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm text-muted-foreground">{item.label}</p>
+                        <p className="font-semibold text-foreground">{item.value}</p>
+                      </div>
+                      {item.href && (
+                        <Button asChild variant="outline" size="sm">
+                          <a href={item.href}>{item.action}</a>
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </StaggerItem>
             ))}
 
             {/* Address */}
-            <Card className="border-primary/30">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <MapPin className="h-6 w-6 text-primary" />
+            <StaggerItem>
+              <Card className="border-primary/30">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <MapPin className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Visit Us</p>
+                      <p className="font-semibold text-foreground">
+                        Baraka Mowlem, Francis Muchee Building
+                      </p>
+                      <p className="text-muted-foreground">
+                        Ground Floor, Room 02
+                      </p>
+                      <p className="text-muted-foreground">
+                        Embakasi – Nairobi, Kenya
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Visit Us</p>
-                    <p className="font-semibold text-foreground">
-                      Baraka Mowlem, Francis Muchee Building
-                    </p>
-                    <p className="text-muted-foreground">
-                      Ground Floor, Room 02
-                    </p>
-                    <p className="text-muted-foreground">
-                      Embakasi – Nairobi, Kenya
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
+          </StaggerContainer>
 
           {/* Map */}
-          <div className="h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden border shadow-lg">
+          <ScaleIn delay={0.2} className="h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden border shadow-lg">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8183!2d36.8978!3d-1.3183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f116d1c6e0001%3A0x0!2sBaraka%20Mowlem%2C%20Embakasi!5e0!3m2!1sen!2ske!4v1234567890"
               width="100%"
@@ -127,7 +134,7 @@ const Contact = () => {
               referrerPolicy="no-referrer-when-downgrade"
               title="Veenz Cyber Solutions Location"
             />
-          </div>
+          </ScaleIn>
         </div>
       </div>
     </div>

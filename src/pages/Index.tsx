@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
+import { ScrollFade, StaggerContainer, StaggerItem } from "@/components/ScrollAnimation";
 
 const quickServices = [
   {
@@ -54,7 +55,7 @@ const Index = () => {
       <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary/90 text-primary-foreground">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMCAyMGMtNC40MTggMC04LTMuNTgyLTgtOHMzLjU4Mi04IDgtOCA4IDMuNTgyIDggOC0zLjU4MiA4LTggOHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-30" />
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
-          <div className="max-w-3xl mx-auto text-center">
+          <ScrollFade className="max-w-3xl mx-auto text-center">
             {/* Logo */}
             <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">
               <span className="text-primary-foreground">VEENZ</span>
@@ -108,28 +109,30 @@ const Index = () => {
                 </Link>
               </Button>
             </div>
-          </div>
+          </ScrollFade>
         </div>
       </section>
 
       {/* Trust Indicators */}
       <section className="bg-muted py-6 border-b">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-            {trustIndicators.map((item, index) => (
-              <div key={index} className="flex items-center gap-2 text-muted-foreground">
-                <item.icon className="h-5 w-5 text-accent" />
-                <span className="text-sm font-medium">{item.text}</span>
-              </div>
-            ))}
-          </div>
+          <ScrollFade>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+              {trustIndicators.map((item, index) => (
+                <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                  <item.icon className="h-5 w-5 text-accent" />
+                  <span className="text-sm font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </ScrollFade>
         </div>
       </section>
 
       {/* Quick Services Overview */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <ScrollFade className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               What We Offer
             </h2>
@@ -137,56 +140,60 @@ const Index = () => {
               From document services to government applications, we've got you covered
               with professional and efficient solutions.
             </p>
-          </div>
+          </ScrollFade>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickServices.map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <StaggerItem key={index}>
+                <ServiceCard {...service} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
-          <div className="text-center mt-10">
+          <ScrollFade delay={0.3} className="text-center mt-10">
             <Button asChild size="lg">
               <Link to="/services">View All Services</Link>
             </Button>
-          </div>
+          </ScrollFade>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="bg-foreground text-background py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-background/70 mb-8 max-w-xl mx-auto">
-            Visit us at Baraka Mowlem, Embakasi or reach out via phone or WhatsApp.
-            We're here to help!
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="bg-accent hover:bg-accent/90 gap-2"
-            >
-              <a
-                href="https://wa.me/254708384500"
-                target="_blank"
-                rel="noopener noreferrer"
+          <ScrollFade>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-background/70 mb-8 max-w-xl mx-auto">
+              Visit us at Baraka Mowlem, Embakasi or reach out via phone or WhatsApp.
+              We're here to help!
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="bg-accent hover:bg-accent/90 gap-2"
               >
-                <MessageCircle className="h-5 w-5" />
-                Chat on WhatsApp
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-background/30 text-background hover:bg-background/10"
-            >
-              <Link to="/contact">Get Directions</Link>
-            </Button>
-          </div>
+                <a
+                  href="https://wa.me/254708384500"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Chat on WhatsApp
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-background/30 text-background hover:bg-background/10"
+              >
+                <Link to="/contact">Get Directions</Link>
+              </Button>
+            </div>
+          </ScrollFade>
         </div>
       </section>
     </div>
