@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Youtube, Instagram } from "lucide-react";
+import { MapPin, Phone, Mail, Youtube, Instagram, AlertTriangle } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
             <h3 className="text-xl font-black mb-4">
               <span className="text-primary">VEENZ</span>
               <span className="text-accent"> CYBER</span>
             </h3>
-            <p className="text-background/70 text-sm leading-relaxed">
-              Your ultimate plug for cyber, printing & digital services in Nairobi.
-              Fast, reliable, and professional.
+            <p className="text-background/70 text-sm leading-relaxed mb-4">
+              Your trusted tech & print partners. Online application assistance,
+              design & printing solutions in Nairobi.
             </p>
+            {/* Short Disclaimer */}
+            <div className="flex items-start gap-2 text-xs text-background/60 bg-background/5 p-3 rounded-lg">
+              <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+              <span>
+                We are an independent service provider, not affiliated with any government agency.
+              </span>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -37,16 +44,39 @@ const Footer = () => {
             </nav>
           </div>
 
+          {/* Legal Links */}
+          <div>
+            <h4 className="font-semibold mb-4">Legal</h4>
+            <nav className="flex flex-col gap-2">
+              <Link to="/disclaimer" className="text-sm text-background/70 hover:text-background transition-colors">
+                Disclaimer
+              </Link>
+              <Link to="/privacy-policy" className="text-sm text-background/70 hover:text-background transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="text-sm text-background/70 hover:text-background transition-colors">
+                Terms & Conditions
+              </Link>
+            </nav>
+          </div>
+
           {/* Contact Info */}
           <div>
             <h4 className="font-semibold mb-4">Contact Us</h4>
             <div className="flex flex-col gap-3">
               <a
-                href="tel:+254708384500"
+                href="tel:+254708384551"
                 className="flex items-center gap-2 text-sm text-background/70 hover:text-background transition-colors"
               >
                 <Phone className="h-4 w-4 text-accent" />
-                +254 708 384 5xx
+                +254 708 384 551
+              </a>
+              <a
+                href="tel:+254721376986"
+                className="flex items-center gap-2 text-sm text-background/70 hover:text-background transition-colors"
+              >
+                <Phone className="h-4 w-4 text-accent" />
+                +254 721 376 986
               </a>
               <a
                 href="mailto:info.veenzentertainment@gmail.com"

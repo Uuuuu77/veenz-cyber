@@ -48,11 +48,11 @@ const Header = () => {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Button asChild variant="outline" size="sm">
-            <a href="tel:+254708384500">Call Now</a>
+            <a href="tel:+254708384551">Call Now</a>
           </Button>
-          <Button asChild size="sm" className="bg-accent hover:bg-accent/90">
+          <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
             <a
-              href="https://wa.me/254708384500"
+              href="https://wa.me/254708384551"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -87,11 +87,11 @@ const Header = () => {
               ))}
               <hr className="my-4" />
               <Button asChild className="w-full">
-                <a href="tel:+254708384500">Call Now</a>
+                <a href="tel:+254708384551">Call Now</a>
               </Button>
-              <Button asChild className="w-full bg-accent hover:bg-accent/90">
+              <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                 <a
-                  href="https://wa.me/254708384500"
+                  href="https://wa.me/254708384551"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
