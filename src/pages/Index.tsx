@@ -2,14 +2,17 @@ import { Link } from "react-router-dom";
 import {
   Printer,
   FileText,
-  Shirt,
-  Music,
+  Palette,
   Phone,
   MessageCircle,
   MapPin,
   Zap,
   Shield,
   Clock,
+  ClipboardList,
+  Upload,
+  Settings,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
@@ -17,27 +20,27 @@ import { ScrollFade, StaggerContainer, StaggerItem } from "@/components/ScrollAn
 
 const quickServices = [
   {
-    icon: Printer,
-    title: "Printing & Copying",
-    description: "High-quality printing, photocopying, binding & lamination",
-    variant: "primary" as const,
-  },
-  {
     icon: FileText,
-    title: "E-Citizen Services",
-    description: "KRA, NHIF, Passport, Driving License & more",
+    title: "Online Application Assistance",
+    description: "eCitizen, KRA, HELB, NTSA, Passport & more government services",
     variant: "accent" as const,
   },
   {
-    icon: Shirt,
-    title: "Branding",
-    description: "Custom T-shirts, hoodies & merchandise printing",
+    icon: Palette,
+    title: "Graphic Design",
+    description: "Logos, posters, certificates, brochures & branding materials",
     variant: "primary" as const,
   },
   {
-    icon: Music,
-    title: "Entertainment",
-    description: "DJ mixes, live sets & digital media content",
+    icon: Printer,
+    title: "Printing Services",
+    description: "Documents, banners, business cards & large format printing",
+    variant: "primary" as const,
+  },
+  {
+    icon: Shield,
+    title: "Branding & Merchandise",
+    description: "Custom t-shirts, mugs, caps & corporate gifts",
     variant: "accent" as const,
   },
 ];
@@ -46,6 +49,33 @@ const trustIndicators = [
   { icon: Zap, text: "Fast Turnaround" },
   { icon: Shield, text: "Reliable Service" },
   { icon: Clock, text: "Open 7 Days" },
+];
+
+const howItWorks = [
+  {
+    icon: MapPin,
+    step: "1",
+    title: "Visit or Contact Us",
+    description: "Come to our cyber or reach out via WhatsApp/call",
+  },
+  {
+    icon: Upload,
+    step: "2",
+    title: "Submit Your Request",
+    description: "Provide your documents or design requirements",
+  },
+  {
+    icon: Settings,
+    step: "3",
+    title: "We Process",
+    description: "We handle the application, design, or printing",
+  },
+  {
+    icon: CheckCircle,
+    step: "4",
+    title: "Collect or Receive",
+    description: "Pick up your items or receive them digitally",
+  },
 ];
 
 const Index = () => {
@@ -66,8 +96,11 @@ const Index = () => {
             </h1>
 
             {/* Tagline */}
-            <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl mx-auto">
-              Your Ultimate Plug for Cyber, Printing & Digital Services
+            <p className="text-xl md:text-2xl font-semibold text-primary-foreground mb-2">
+              Your Trusted Tech & Print Partners
+            </p>
+            <p className="text-base md:text-lg text-primary-foreground/80 mb-8 max-w-xl mx-auto">
+              Online Application Assistance, Design & Printing Solutions
             </p>
 
             {/* CTA Buttons */}
@@ -78,7 +111,7 @@ const Index = () => {
                 variant="secondary"
                 className="w-full sm:w-auto gap-2"
               >
-                <a href="tel:+254708384500">
+                <a href="tel:+254708384551">
                   <Phone className="h-5 w-5" />
                   Call Now
                 </a>
@@ -86,15 +119,15 @@ const Index = () => {
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto gap-2 bg-accent hover:bg-accent/90"
+                className="w-full sm:w-auto gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
               >
                 <a
-                  href="https://wa.me/254708384500"
+                  href="https://wa.me/254708384551"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="h-5 w-5" />
-                  WhatsApp Us
+                  Get Online Assistance
                 </a>
               </Button>
               <Button
@@ -103,9 +136,9 @@ const Index = () => {
                 variant="outline"
                 className="w-full sm:w-auto gap-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
-                <Link to="/contact">
-                  <MapPin className="h-5 w-5" />
-                  Visit Us
+                <Link to="/services">
+                  <ClipboardList className="h-5 w-5" />
+                  View Services
                 </Link>
               </Button>
             </div>
@@ -137,8 +170,8 @@ const Index = () => {
               What We Offer
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              From document services to government applications, we've got you covered
-              with professional and efficient solutions.
+              From online application assistance to professional design and printing,
+              we've got you covered with reliable solutions.
             </p>
           </ScrollFade>
 
@@ -158,6 +191,43 @@ const Index = () => {
         </div>
       </section>
 
+      {/* How It Works */}
+      <section className="py-16 md:py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <ScrollFade className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              How It Works
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Getting started is easy. Follow these simple steps.
+            </p>
+          </ScrollFade>
+
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {howItWorks.map((item, index) => (
+              <StaggerItem key={index}>
+                <div className="text-center">
+                  <div className="relative inline-flex items-center justify-center mb-4">
+                    <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+                      <item.icon className="h-8 w-8 text-primary" />
+                    </div>
+                    <span className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-accent text-accent-foreground text-sm font-bold flex items-center justify-center">
+                      {item.step}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {item.description}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="bg-foreground text-background py-16">
         <div className="container mx-auto px-4 text-center">
@@ -173,10 +243,10 @@ const Index = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-accent hover:bg-accent/90 gap-2"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground gap-2"
               >
                 <a
-                  href="https://wa.me/254708384500"
+                  href="https://wa.me/254708384551"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
