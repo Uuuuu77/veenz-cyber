@@ -1,73 +1,96 @@
-# Welcome to your Lovable project
+# Veenz Cyber Solutions
 
-## Project info
+A modern, responsive website for Veenz Cyber Solutions - your trusted tech and print partner in Embakasi, Nairobi.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## About
 
-## How can I edit this code?
+Veenz Cyber Solutions provides comprehensive digital services including:
+- Online application assistance (eCitizen, KRA, HELB, NTSA, Passport services)
+- Professional graphic design (logos, certificates, posters, brochures)
+- Quality printing services (documents, banners, business cards)
+- Custom branding and merchandise (t-shirts, mugs, corporate gifts)
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+- 🎨 Modern, clean design with brand colors (blue & red)
+- 📱 Fully responsive across all devices
+- 🌓 Dark/Light mode support
+- ♿ Accessibility-focused
+- ⚡ Fast loading with optimized performance
+- 🎭 Smooth animations and transitions
+- 📞 Quick contact options (WhatsApp, Phone, Email)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **Shadcn/ui** - UI components
+- **Framer Motion** - Animations
+- **React Router** - Navigation
+- **Lucide React** - Icons
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js 16+ and npm
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd veenz-cyber-solutions
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Install dependencies
+```bash
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start development server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Build for production
+```bash
+npm run build
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+5. Preview production build
+```bash
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Page components (Home, Services, About, Contact)
+├── hooks/         # Custom React hooks
+├── lib/           # Utility functions
+└── index.css      # Global styles
+```
 
-## What technologies are used for this project?
+## Contact
 
-This project is built with:
+**Veenz Cyber Solutions**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+📍 Baraka Mowlem, Francis Muchee Building, Ground Floor Room 02, Embakasi - Nairobi
 
-## How can I deploy this project?
+📞 +254 708 384 551 | +254 721 376 986
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+📧 info.veenzentertainment@gmail.com
 
-## Can I connect a custom domain to my Lovable project?
+🌐 [veenzcyber](https://veenz-cyber.vercel.app)
 
-Yes, you can!
+## License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+© 2026 Veenz Cyber Solutions. All rights reserved.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+**Note:** This website is for an independent cyber service provider. We are not affiliated with any government institution.
