@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Youtube, Instagram, AlertTriangle } from "lucide-react";
+import { MapPin, Phone, Mail, MessageCircle, Instagram, AlertTriangle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -103,13 +103,13 @@ const Footer = () => {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://youtube.com/@VEENZEntTV"
+              href="https://wa.me/254708384551"
               target="_blank"
               rel="noopener noreferrer"
               className="text-background/60 hover:text-accent transition-colors"
-              aria-label="YouTube"
+              aria-label="WhatsApp"
             >
-              <Youtube className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5" />
             </a>
             <a
               href="https://instagram.com/officialveenz"

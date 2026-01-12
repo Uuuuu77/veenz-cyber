@@ -26,9 +26,16 @@ import {
   AlertTriangle,
   Coffee,
   Gift,
+  HelpCircle,
 } from "lucide-react";
 import ServiceCard from "@/components/ServiceCard";
 import { ScrollFade, StaggerContainer, StaggerItem } from "@/components/ScrollAnimation";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const governmentServices = [
   {
@@ -237,6 +244,57 @@ const brandingServices = [
   },
 ];
 
+const faqItems = [
+  {
+    question: "What services does Veenz Cyber Solutions offer?",
+    answer: "We provide online application assistance (passport, HELB, KRA, business and company registration, county permits), graphic design, printing, and branding services for individuals and businesses.",
+  },
+  {
+    question: "Are you affiliated with the Government of Kenya or eCitizen?",
+    answer: "No. Veenz Cyber Solutions is an independent service provider. We are not affiliated with eCitizen, KRA, HELB, NTSA, Immigration, or any government institution.",
+  },
+  {
+    question: "What does \"application assistance\" mean?",
+    answer: "It means we help clients fill, submit, upload documents, and navigate online government systems. Final approval and processing are done solely by the relevant government authority.",
+  },
+  {
+    question: "Do you guarantee approval of applications?",
+    answer: "No. Approval depends entirely on the government institution, accuracy of information provided, and current policies.",
+  },
+  {
+    question: "What documents do I need for applications?",
+    answer: "Required documents vary by service. Our staff will guide you on what is needed before starting the application.",
+  },
+  {
+    question: "Are your service charges official government fees?",
+    answer: "No. Our charges are service fees for assistance only. Official government fees must be paid directly through authorized platforms.",
+  },
+  {
+    question: "How long does the application process take?",
+    answer: "Processing times vary depending on the institution, system availability, and application type. We do not control timelines.",
+  },
+  {
+    question: "Do you offer graphic design and printing services?",
+    answer: "Yes. We design posters, certificates, logos, business branding materials, wedding cards, brochures, and offer bulk and large-format printing.",
+  },
+  {
+    question: "Can I request revisions for design work?",
+    answer: "Yes. Revisions are allowed according to the agreed terms before final approval and printing.",
+  },
+  {
+    question: "Do you provide online or remote services?",
+    answer: "Some services can be handled remotely, while others require a physical visit for document verification.",
+  },
+  {
+    question: "Is my personal information safe?",
+    answer: "Yes. Client data is handled with confidentiality and used strictly for the requested service.",
+  },
+  {
+    question: "How can I contact Veenz Cyber Solutions?",
+    answer: "You can reach us via phone, email, or by visiting our physical cyber office during working hours.",
+  },
+];
+
 const Services = () => {
   return (
     <div className="py-12 md:py-20">
@@ -250,26 +308,6 @@ const Services = () => {
             Online application assistance, professional design, quality printing,
             and branding solutions all under one roof.
           </p>
-        </ScrollFade>
-
-        {/* Disclaimer Banner */}
-        <ScrollFade className="mb-12">
-          <div className="bg-accent/10 border-l-4 border-accent p-4 md:p-6 rounded-r-lg">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="h-6 w-6 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-foreground mb-1">Important Notice</h3>
-                <p className="text-muted-foreground text-sm md:text-base">
-                  Veenz Cyber Solutions is an <strong>independent cyber service provider</strong>. 
-                  We are NOT affiliated with eCitizen, KRA, HELB, NTSA, or any Government of Kenya institution. 
-                  We assist clients with online application processes.{" "}
-                  <Link to="/disclaimer" className="text-primary hover:underline font-medium">
-                    Read full disclaimer →
-                  </Link>
-                </p>
-              </div>
-            </div>
-          </div>
         </ScrollFade>
 
         {/* Government & Institutional Application Support */}
@@ -326,7 +364,7 @@ const Services = () => {
         </section>
 
         {/* Branding & Merchandise */}
-        <section>
+        <section className="mb-16">
           <ScrollFade className="flex items-center gap-3 mb-8">
             <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
               <Shirt className="h-5 w-5 text-accent" />
@@ -341,6 +379,52 @@ const Services = () => {
             ))}
           </StaggerContainer>
         </section>
+
+        {/* FAQ Section */}
+        <section className="mb-16">
+          <ScrollFade className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <HelpCircle className="h-5 w-5 text-primary" />
+            </div>
+            <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+          </ScrollFade>
+          <ScrollFade>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, index) => (
+                  <AccordionItem key={index} value={`item-${index}`} className="border-border/50">
+                    <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-4">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </ScrollFade>
+        </section>
+
+        {/* Disclaimer Banner - Moved to bottom */}
+        <ScrollFade>
+          <div className="bg-accent/10 border-l-4 border-accent p-4 md:p-6 rounded-r-lg">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-6 w-6 text-accent shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">Important Notice</h3>
+                <p className="text-muted-foreground text-sm md:text-base">
+                  Veenz Cyber Solutions is an <strong>independent cyber service provider</strong>. 
+                  We are NOT affiliated with eCitizen, KRA, HELB, NTSA, or any Government of Kenya institution. 
+                  We assist clients with online application processes.{" "}
+                  <Link to="/disclaimer" className="text-primary hover:underline font-medium">
+                    Read full disclaimer →
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </ScrollFade>
       </div>
     </div>
   );
