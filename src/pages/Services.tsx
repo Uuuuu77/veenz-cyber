@@ -409,20 +409,15 @@ const Services = () => {
         {/* Disclaimer Banner - Moved to bottom */}
         <ScrollFade>
           <div className="bg-accent/10 border-l-4 border-accent p-4 md:p-6 rounded-r-lg">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="h-6 w-6 text-accent shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-foreground mb-1">Important Notice</h3>
-                <p className="text-muted-foreground text-sm md:text-base">
-                  Veenz Cyber Solutions is an <strong>independent cyber service provider</strong>. 
-                  We are NOT affiliated with eCitizen, KRA, HELB, NTSA, or any Government of Kenya institution. 
-                  We assist clients with online application processes.{" "}
-                  <Link to="/disclaimer" className="text-primary hover:underline font-medium">
-                    Read full disclaimer →
-                  </Link>
-                </p>
-              </div>
-            </div>
+            <h3 className="font-semibold text-foreground mb-1">Important Notice</h3>
+            <p className="text-muted-foreground text-sm md:text-base">
+              Veenz Cyber Solutions is an <strong>independent cyber service provider</strong>. 
+              We are NOT affiliated with eCitizen, KRA, HELB, NTSA, or any Government of Kenya institution. 
+              We assist clients with online application processes.{" "}
+              <Link to="/disclaimer" className="text-primary hover:underline font-medium">
+                Read full disclaimer →
+              </Link>
+            </p>
           </div>
         </ScrollFade>
       </div>
