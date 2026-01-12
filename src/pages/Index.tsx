@@ -74,7 +74,7 @@ const howItWorks = [
     icon: CheckCircle,
     step: "4",
     title: "Collect or Receive",
-    description: "Pick up your items or receive them digitally",
+    description: "Pick up your items physically at our Cyber",
   },
 ];
 
