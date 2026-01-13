@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Navigation } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
@@ -41,24 +41,26 @@ const Contact = () => {
           </p>
         </ScrollFade>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <StaggerContainer className="space-y-6">
+          <StaggerContainer className="space-y-4 md:space-y-6">
             {/* WhatsApp CTA */}
             <StaggerItem>
-              <Card className="border-accent/30 bg-accent/5">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
-                    <div className="h-14 w-14 rounded-xl bg-accent/10 flex items-center justify-center">
-                      <MessageCircle className="h-7 w-7 text-accent" />
+              <Card className="border-accent/50 bg-card">
+                <CardContent className="p-4 md:p-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div className="flex items-center gap-4 flex-1">
+                      <div className="h-12 w-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                        <MessageCircle className="h-6 w-6 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-foreground text-lg">Chat on WhatsApp</h3>
+                        <p className="text-muted-foreground text-sm">
+                          Quick responses, even after hours
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-foreground text-lg">Chat on WhatsApp</h3>
-                      <p className="text-muted-foreground text-sm">
-                        Quick responses, even after hours
-                      </p>
-                    </div>
-                    <Button asChild className="bg-accent hover:bg-accent/90">
+                    <Button asChild className="bg-accent hover:bg-accent/90 w-full sm:w-auto">
                       <a
                         href="https://wa.me/254708384500"
                         target="_blank"
@@ -76,17 +78,17 @@ const Contact = () => {
             {contactInfo.map((item, index) => (
               <StaggerItem key={index}>
                 <Card>
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 md:p-6">
                     <div className="flex items-center gap-4">
-                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                         <item.icon className="h-6 w-6 text-primary" />
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <p className="text-sm text-muted-foreground">{item.label}</p>
-                        <p className="font-semibold text-foreground">{item.value}</p>
+                        <p className="font-semibold text-foreground break-words">{item.value}</p>
                       </div>
                       {item.href && (
-                        <Button asChild variant="outline" size="sm">
+                        <Button asChild variant="outline" size="sm" className="shrink-0">
                           <a href={item.href}>{item.action}</a>
                         </Button>
                       )}
@@ -99,12 +101,12 @@ const Contact = () => {
             {/* Address */}
             <StaggerItem>
               <Card className="border-primary/30">
-                <CardContent className="p-6">
+                <CardContent className="p-4 md:p-6">
                   <div className="flex items-start gap-4">
                     <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <p className="text-sm text-muted-foreground mb-1">Visit Us</p>
                       <p className="font-semibold text-foreground">
                         Baraka Mowlem, Francis Muchee Building
@@ -115,6 +117,17 @@ const Contact = () => {
                       <p className="text-muted-foreground">
                         Embakasi – Nairobi, Kenya
                       </p>
+                      <Button asChild variant="outline" className="w-full mt-4">
+                        <a
+                          href="https://www.google.com/maps/dir/?api=1&destination=-1.3183,36.8978"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Get directions to Veenz Cyber Solutions"
+                        >
+                          <Navigation className="h-4 w-4 mr-2" />
+                          Get Directions
+                        </a>
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -123,9 +136,9 @@ const Contact = () => {
           </StaggerContainer>
 
           {/* Map */}
-          <ScaleIn delay={0.2} className="h-[400px] lg:h-full min-h-[400px] rounded-xl overflow-hidden border shadow-lg">
+          <ScaleIn delay={0.2} className="h-[350px] md:h-[450px] lg:h-full lg:min-h-[500px] rounded-xl overflow-hidden border shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8183!2d36.8978!3d-1.3183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f116d1c6e0001%3A0x0!2sBaraka%20Mowlem%2C%20Embakasi!5e0!3m2!1sen!2ske!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8183!2d36.8953!3d-1.3183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f11f3e0b0c8d1%3A0x1234567890abcdef!2sMowlem%2C%20Embakasi%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
               width="100%"
               height="100%"
               style={{ border: 0 }}
