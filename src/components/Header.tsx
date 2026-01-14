@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import VeenzLogo from "@/components/VeenzLogo";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -23,6 +24,7 @@ const Header = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
+          <VeenzLogo size="sm" />
           <span className="text-xl font-black tracking-tight">
             <span className="text-primary">VEENZ</span>
             <span className="text-accent"> CYBER</span>
