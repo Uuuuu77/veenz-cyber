@@ -1,17 +1,21 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, MessageCircle, Instagram, AlertTriangle } from "lucide-react";
+import VeenzLogo from "@/components/VeenzLogo";
 
 const Footer = () => {
   return (
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-black mb-4">
-              <span className="text-primary">VEENZ</span>
-              <span className="text-accent"> CYBER</span>
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <VeenzLogo size="sm" />
+              <h3 className="text-xl font-black">
+                <span className="text-primary">VEENZ</span>
+                <span className="text-accent"> CYBER</span>
+              </h3>
+            </div>
             <p className="text-background/70 text-sm leading-relaxed mb-4">
               Your trusted tech & print partners. Online application assistance,
               design & printing solutions in Nairobi.
@@ -40,6 +44,31 @@ const Footer = () => {
               </Link>
               <Link to="/contact" className="text-sm text-background/70 hover:text-background transition-colors">
                 Contact
+              </Link>
+            </nav>
+          </div>
+
+          {/* Online Services */}
+          <div>
+            <h4 className="font-semibold mb-4">Online Services</h4>
+            <nav className="flex flex-col gap-2">
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                Passport Applications
+              </Link>
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                KRA Services
+              </Link>
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                HELB Applications
+              </Link>
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                NTSA Services
+              </Link>
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                Business Registration
+              </Link>
+              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+                eCitizen Support
               </Link>
             </nav>
           </div>
