@@ -19,30 +19,41 @@ import ServiceCard from "@/components/ServiceCard";
 import { ScrollFade, StaggerContainer, StaggerItem } from "@/components/ScrollAnimation";
 import heroBg from "@/assets/hero-bg.jpg";
 
+// Service illustrations
+import onlineServicesImg from "@/assets/services/online-services.png";
+import designServicesImg from "@/assets/services/design-services.png";
+import printingServicesImg from "@/assets/services/printing-services.png";
+import brandingServicesImg from "@/assets/services/branding-services.png";
+import trustBadge from "@/assets/trust-badge.png";
+
 const quickServices = [
   {
     icon: FileText,
     title: "Online Application Assistance",
     description: "eCitizen, KRA, HELB, NTSA, Passport & more government services",
     variant: "accent" as const,
+    image: onlineServicesImg,
   },
   {
     icon: Palette,
     title: "Graphic Design",
     description: "Logos, posters, certificates, brochures & branding materials",
     variant: "primary" as const,
+    image: designServicesImg,
   },
   {
     icon: Printer,
     title: "Printing Services",
     description: "Documents, banners, business cards & large format printing",
     variant: "primary" as const,
+    image: printingServicesImg,
   },
   {
     icon: Shield,
     title: "Branding & Merchandise",
     description: "Custom t-shirts, mugs, caps & corporate gifts",
     variant: "accent" as const,
+    image: brandingServicesImg,
   },
 ];
 
@@ -156,16 +167,24 @@ const Index = () => {
       </section>
 
       {/* Trust Indicators */}
-      <section className="bg-muted py-6 border-b">
+      <section className="bg-muted py-8 border-b">
         <div className="container mx-auto px-4">
           <ScrollFade>
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-16">
-              {trustIndicators.map((item, index) => (
-                <div key={index} className="flex items-center gap-2 text-muted-foreground">
-                  <item.icon className="h-5 w-5 text-accent" />
-                  <span className="text-sm font-medium">{item.text}</span>
-                </div>
-              ))}
+            <div className="flex flex-col items-center gap-6">
+              {/* Trust Badge */}
+              <img 
+                src={trustBadge} 
+                alt="Trusted Service" 
+                className="h-16 w-16 object-contain"
+              />
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-16">
+                {trustIndicators.map((item, index) => (
+                  <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                    <item.icon className="h-5 w-5 text-accent" />
+                    <span className="text-sm font-medium">{item.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </ScrollFade>
         </div>
