@@ -2,6 +2,7 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Navigation } from "lucide-re
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
+import ContactForm from "@/components/ContactForm";
 
 const contactInfo = [
   {
@@ -149,6 +150,26 @@ const Contact = () => {
             />
           </ScaleIn>
         </div>
+
+        {/* Contact Form Section */}
+        <section className="mt-16">
+          <ScrollFade className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Send Us a Message
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Fill out the form below and we'll get back to you as soon as possible.
+            </p>
+          </ScrollFade>
+
+          <ScaleIn className="max-w-2xl mx-auto">
+            <Card className="shadow-lg">
+              <CardContent className="p-6 md:p-8">
+                <ContactForm />
+              </CardContent>
+            </Card>
+          </ScaleIn>
+        </section>
       </div>
     </div>
   );
