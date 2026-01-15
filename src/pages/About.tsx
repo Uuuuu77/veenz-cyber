@@ -1,6 +1,7 @@
 import { Target, Eye, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
+import teamWorkspace from "@/assets/about/team-workspace.jpg";
 
 const whyChooseUs = [
   "Fast turnaround on all services",
@@ -29,30 +30,43 @@ const About = () => {
 
         {/* Story Section */}
         <section className="mb-16">
-          <ScaleIn className="max-w-3xl mx-auto">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8 md:p-12">
-                <h2 className="text-2xl font-bold text-foreground mb-6">Our Story</h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Veenz Cyber Solutions, operating under Veenz Entertainment & Cyber Solutions,
-                    was founded with a simple mission: to provide fast, reliable, and affordable
-                    digital services to the people of Nairobi.
-                  </p>
-                  <p>
-                    Located in the heart of Embakasi at Baraka Mowlem, we understand the needs
-                    of our community. Whether you need urgent document printing, assistance with
-                    government e-services, or custom branded merchandise, we're here to help.
-                  </p>
-                  <p>
-                    What started as a small cyber café has grown into a comprehensive service
-                    center, trusted by students, professionals, and businesses alike. Our
-                    commitment to quality and customer satisfaction drives everything we do.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </ScaleIn>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+            <ScaleIn>
+              <Card className="border-none shadow-lg">
+                <CardContent className="p-8 md:p-12">
+                  <h2 className="text-2xl font-bold text-foreground mb-6">Our Story</h2>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>
+                      Veenz Cyber Solutions, operating under Veenz Entertainment & Cyber Solutions,
+                      was founded with a simple mission: to provide fast, reliable, and affordable
+                      digital services to the people of Nairobi.
+                    </p>
+                    <p>
+                      Located in the heart of Embakasi at Baraka Mowlem, we understand the needs
+                      of our community. Whether you need urgent document printing, assistance with
+                      government e-services, or custom branded merchandise, we're here to help.
+                    </p>
+                    <p>
+                      What started as a small cyber café has grown into a comprehensive service
+                      center, trusted by students, professionals, and businesses alike. Our
+                      commitment to quality and customer satisfaction drives everything we do.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </ScaleIn>
+
+            <ScrollFade direction="right">
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img 
+                  src={teamWorkspace} 
+                  alt="Veenz Cyber Solutions workspace - modern cyber café with computers and printing equipment"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </ScrollFade>
+          </div>
         </section>
 
         {/* Mission & Vision */}
