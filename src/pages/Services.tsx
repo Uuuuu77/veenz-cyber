@@ -23,7 +23,6 @@ import {
   CreditCard,
   BadgeCheck,
   Home,
-  AlertTriangle,
   Coffee,
   Gift,
   HelpCircle,
@@ -36,6 +35,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Service section images
+import onlineServicesPhoto from "@/assets/services/online-services-photo.jpg";
+import designWorkspace from "@/assets/services/design-workspace.jpg";
+import printingServices from "@/assets/services/printing-services.jpg";
 
 const governmentServices = [
   {
@@ -158,7 +162,7 @@ const designServices = [
   },
 ];
 
-const printingServices = [
+const printingServicesData = [
   {
     icon: Layers,
     title: "Large Format Printing",
@@ -295,6 +299,29 @@ const faqItems = [
   },
 ];
 
+interface ServiceSectionHeaderProps {
+  image: string;
+  title: string;
+  alt: string;
+}
+
+const ServiceSectionHeader = ({ image, title, alt }: ServiceSectionHeaderProps) => (
+  <div className="relative rounded-2xl overflow-hidden mb-8 h-48 md:h-64">
+    <img
+      src={image}
+      alt={alt}
+      className="w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+    <div className="absolute bottom-0 left-0 right-0 p-6">
+      <h2 className="text-white text-xl md:text-2xl font-bold drop-shadow-lg">
+        {title}
+      </h2>
+    </div>
+  </div>
+);
+
 const Services = () => {
   return (
     <div className="py-12 md:py-20">
@@ -312,13 +339,12 @@ const Services = () => {
 
         {/* Government & Institutional Application Support */}
         <section className="mb-16">
-          <ScrollFade className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
-              <FileCheck className="h-5 w-5 text-accent" />
-            </div>
-            <h2 className="text-2xl font-bold text-foreground">
-              Government & Institutional Application Support
-            </h2>
+          <ScrollFade>
+            <ServiceSectionHeader
+              image={onlineServicesPhoto}
+              title="Government & Institutional Application Support"
+              alt="Professional customer service for government application assistance at Veenz Cyber"
+            />
           </ScrollFade>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {governmentServices.map((service, index) => (
@@ -331,11 +357,12 @@ const Services = () => {
 
         {/* Graphic Design & Branding */}
         <section className="mb-16">
-          <ScrollFade className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Palette className="h-5 w-5 text-primary" />
-            </div>
-            <h2 className="text-2xl font-bold text-foreground">Graphic Design & Branding</h2>
+          <ScrollFade>
+            <ServiceSectionHeader
+              image={designWorkspace}
+              title="Graphic Design & Branding"
+              alt="Creative graphic design workspace at Veenz Cyber Solutions"
+            />
           </ScrollFade>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {designServices.map((service, index) => (
@@ -348,14 +375,15 @@ const Services = () => {
 
         {/* Printing Services */}
         <section className="mb-16">
-          <ScrollFade className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Printer className="h-5 w-5 text-primary" />
-            </div>
-            <h2 className="text-2xl font-bold text-foreground">Printing Services</h2>
+          <ScrollFade>
+            <ServiceSectionHeader
+              image={printingServices}
+              title="Printing Services"
+              alt="Large format printing equipment at Veenz Cyber Solutions"
+            />
           </ScrollFade>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {printingServices.map((service, index) => (
+            {printingServicesData.map((service, index) => (
               <StaggerItem key={index}>
                 <ServiceCard {...service} variant="primary" />
               </StaggerItem>

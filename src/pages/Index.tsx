@@ -26,6 +26,11 @@ import printingServicesImg from "@/assets/services/printing-services.png";
 import brandingServicesImg from "@/assets/services/branding-services.png";
 import trustBadge from "@/assets/trust-badge.png";
 
+// Workspace photos
+import onlineServicesPhoto from "@/assets/services/online-services-photo.jpg";
+import printingServicesPhoto from "@/assets/services/printing-services.jpg";
+import designWorkspacePhoto from "@/assets/services/design-workspace.jpg";
+
 const quickServices = [
   {
     icon: FileText,
@@ -87,6 +92,21 @@ const howItWorks = [
     step: "4",
     title: "Collect or Receive",
     description: "Pick up your items physically at our Cyber",
+  },
+];
+
+const workspaceImages = [
+  {
+    src: onlineServicesPhoto,
+    alt: "Customer receiving assistance with online government applications at Veenz Cyber",
+  },
+  {
+    src: printingServicesPhoto,
+    alt: "Large format printing equipment at Veenz Cyber Solutions",
+  },
+  {
+    src: designWorkspacePhoto,
+    alt: "Graphic design workspace with modern equipment at Veenz Cyber",
   },
 ];
 
@@ -216,6 +236,36 @@ const Index = () => {
               <Link to="/services">View All Services</Link>
             </Button>
           </ScrollFade>
+        </div>
+      </section>
+
+      {/* Our Workspace Showcase */}
+      <section className="py-16 md:py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <ScrollFade className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Our Professional Workspace
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base">
+              Modern equipment and comfortable environment for all your digital needs
+            </p>
+          </ScrollFade>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {workspaceImages.map((image, index) => (
+              <StaggerItem key={index}>
+                <div className="relative overflow-hidden rounded-2xl shadow-lg group">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
 

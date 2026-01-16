@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
 import ContactForm from "@/components/ContactForm";
+import customerServiceImg from "@/assets/about/customer-service.jpg";
 
 const contactInfo = [
   {
@@ -150,6 +151,37 @@ const Contact = () => {
             />
           </ScaleIn>
         </div>
+
+        {/* Friendly Team Section */}
+        <section className="mt-16">
+          <ScrollFade>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
+              <div className="rounded-2xl overflow-hidden shadow-lg order-2 lg:order-1">
+                <img
+                  src={customerServiceImg}
+                  alt="Friendly customer service at Veenz Cyber Solutions"
+                  className="w-full h-64 md:h-80 object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="order-1 lg:order-2">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  We're Here to Help
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Our friendly and professional team is ready to assist you with all your 
+                  digital needs. Whether you need help with government applications, 
+                  professional printing, or custom designs, we're committed to providing 
+                  fast, reliable, and affordable services.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Visit us at our Embakasi location or reach out via WhatsApp for quick 
+                  assistance. We're open 7 days a week to serve you better!
+                </p>
+              </div>
+            </div>
+          </ScrollFade>
+        </section>
 
         {/* Contact Form Section */}
         <section className="mt-16">

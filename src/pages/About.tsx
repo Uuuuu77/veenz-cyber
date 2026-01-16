@@ -2,6 +2,9 @@ import { Target, Eye, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollFade, StaggerContainer, StaggerItem, ScaleIn } from "@/components/ScrollAnimation";
 import teamWorkspace from "@/assets/about/team-workspace.jpg";
+import customerService from "@/assets/about/customer-service.jpg";
+import printingEquipment from "@/assets/services/printing-services.jpg";
+import onlineServices from "@/assets/services/online-services-photo.jpg";
 
 const whyChooseUs = [
   "Fast turnaround on all services",
@@ -12,6 +15,21 @@ const whyChooseUs = [
   "Quality printing and branding work",
   "Open 7 days a week",
   "Trusted by the local community",
+];
+
+const facilityImages = [
+  {
+    src: teamWorkspace,
+    alt: "Modern workspace with computers and equipment at Veenz Cyber Solutions",
+  },
+  {
+    src: printingEquipment,
+    alt: "Professional printing equipment at Veenz Cyber",
+  },
+  {
+    src: onlineServices,
+    alt: "Customer service area for online applications",
+  },
 ];
 
 const About = () => {
@@ -59,14 +77,42 @@ const About = () => {
             <ScrollFade direction="right">
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <img 
-                  src={teamWorkspace} 
-                  alt="Veenz Cyber Solutions workspace - modern cyber café with computers and printing equipment"
+                  src={customerService} 
+                  alt="Professional customer service at Veenz Cyber Solutions"
                   className="w-full h-auto object-cover"
                   loading="lazy"
                 />
               </div>
             </ScrollFade>
           </div>
+        </section>
+
+        {/* Our Facilities */}
+        <section className="mb-16">
+          <ScrollFade className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Our Facilities
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Modern equipment and a comfortable environment designed for your convenience.
+            </p>
+          </ScrollFade>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {facilityImages.map((image, index) => (
+              <StaggerItem key={index}>
+                <div className="relative overflow-hidden rounded-2xl shadow-lg group h-64">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </section>
 
         {/* Mission & Vision */}
