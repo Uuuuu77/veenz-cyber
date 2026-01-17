@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, MessageCircle } from "lucide-react";
 import { z } from "zod";
 import { Link } from "react-router-dom";
 
@@ -99,47 +99,46 @@ const ContactForm = () => {
     setLoading(true);
 
     try {
-      // Using Web3Forms for email submission
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with actual key
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || "Not provided",
-          service: formData.service,
-          message: formData.message,
-          subject: `New Contact Form Submission - ${formData.service}`,
-          from_name: "Veenz Cyber Solutions Website",
-        }),
+      // Get the service label for better readability
+      const serviceLabel = serviceOptions.find(
+        opt => opt.value === formData.service
+      )?.label || formData.service;
+
+      // Construct the WhatsApp message
+      const message = `*New Inquiry from Veenz Website*
+
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone || "Not provided"}
+*Service:* ${serviceLabel}
+
+*Message:*
+${formData.message}`;
+
+      // WhatsApp number (same as FloatingWhatsApp component)
+      const whatsappNumber = "254708384551";
+      
+      // Create WhatsApp URL with encoded message
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, "_blank");
+
+      toast.success("Opening WhatsApp... Please send the message to complete your inquiry.");
+
+      // Reset form after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+        consent: false,
       });
-
-      const result = await response.json();
-
-      if (result.success) {
-        toast.success("Message sent successfully! We'll get back to you soon.");
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          service: "",
-          message: "",
-          consent: false,
-        });
-        setErrors({});
-      } else {
-        throw new Error(result.message || "Failed to send message");
-      }
+      setErrors({});
     } catch (error) {
       console.error("Contact form error:", error);
-      toast.error(
-        "Failed to send message. Please try again or contact us directly via WhatsApp."
-      );
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -277,8 +276,8 @@ const ContactForm = () => {
           </>
         ) : (
           <>
-            <Send className="mr-2 h-4 w-4" />
-            Send Message
+            <MessageCircle className="mr-2 h-4 w-4" />
+            Send via WhatsApp
           </>
         )}
       </Button>
