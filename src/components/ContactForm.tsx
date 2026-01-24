@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -37,16 +38,61 @@ const contactSchema = z.object({
     .max(1000, "Message must be less than 1000 characters"),
 });
 
-// Service options for dropdown
+// Extended service options for dropdown - matches Services page slugs
 const serviceOptions = [
-  { value: "online-applications", label: "Online Applications" },
-  { value: "graphic-design", label: "Graphic Design" },
-  { value: "printing", label: "Printing Services" },
-  { value: "branding", label: "Branding & Merchandise" },
+  // Government Services
+  { value: "passport-application", label: "Passport Application Assistance" },
+  { value: "birth-death-certificate", label: "Birth/Death Certificate Assistance" },
+  { value: "helb-application", label: "HELB Application Support" },
+  { value: "kra-services", label: "KRA Services Assistance" },
+  { value: "business-registration", label: "Business Name Registration" },
+  { value: "company-registration", label: "Company Registration Support" },
+  { value: "business-permit", label: "Single Business Permit Support" },
+  { value: "ecitizen-support", label: "eCitizen Account Support" },
+  { value: "ntsa-services", label: "NTSA Services Assistance" },
+  { value: "boma-yangu", label: "Boma Yangu Assistance" },
+  { value: "nhif-nssf", label: "NHIF/SHIF/NSSF Assistance" },
+  { value: "agpo-certificate", label: "AGPO Certificate Assistance" },
+  
+  // Design Services
+  { value: "certificate-design", label: "Award Certificate Design" },
+  { value: "poster-design", label: "Posters & Flyers Design" },
+  { value: "eulogy-design", label: "Eulogy Design" },
+  { value: "greeting-cards", label: "Love Cards & Greeting Cards" },
+  { value: "brochure-design", label: "Brochure Design" },
+  { value: "wedding-cards", label: "Wedding Card Design" },
+  { value: "logo-design", label: "Logo Design" },
+  { value: "banner-design", label: "Sticker & Banner Design" },
+  { value: "letterhead-design", label: "Letterhead Design" },
+  { value: "company-profile", label: "Company Profile Design" },
+  { value: "id-card-design", label: "ID Card Design" },
+  
+  // Printing Services
+  { value: "large-format-printing", label: "Large Format Printing" },
+  { value: "bulk-printing", label: "Bulk Printing" },
+  { value: "certificate-printing", label: "Certificate Printing" },
+  { value: "business-cards", label: "Business Card Printing" },
+  { value: "flyer-printing", label: "Flyers & Brochures Printing" },
+  { value: "wedding-printing", label: "Wedding Cards Printing" },
+  { value: "profile-printing", label: "Company Profiles Printing" },
+  { value: "document-printing", label: "Document Printing" },
+  { value: "scanning-copying", label: "Scanning & Photocopying" },
+  { value: "binding-lamination", label: "Binding & Lamination" },
+  
+  // Branding Services
+  { value: "tshirt-branding", label: "T-Shirt Branding" },
+  { value: "mug-branding", label: "Mug/Cup Branding" },
+  { value: "corporate-gifts", label: "Corporate Gift Branding" },
+  { value: "event-branding", label: "Event Branding" },
+  { value: "hoodie-branding", label: "Hoodie Branding" },
+  { value: "caps-bags", label: "Caps & Bags Branding" },
+  
+  // General
   { value: "general", label: "General Inquiry" },
 ];
 
 const ContactForm = () => {
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -57,6 +103,17 @@ const ContactForm = () => {
     consent: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Auto-select service from URL parameter
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+    if (serviceParam) {
+      const validService = serviceOptions.find(opt => opt.value === serviceParam);
+      if (validService) {
+        setFormData(prev => ({ ...prev, service: serviceParam }));
+      }
+    }
+  }, [searchParams]);
 
   const validateForm = () => {
     try {
