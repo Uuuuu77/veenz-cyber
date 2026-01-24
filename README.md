@@ -85,7 +85,7 @@ src/
 
 📧 info.veenzentertainment@gmail.com
 
-🌐 [veenzcyber](https://veenz-cyber.vercel.app)
+🌐 [VeenzCyber](https://veenz-cyber.vercel.app)
 
 ## License
 
