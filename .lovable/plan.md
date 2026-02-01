@@ -1,152 +1,135 @@
 
 
-## Implementation Plan: Hero Image, Service Buttons & Contact Form URL Parameters
+## Implementation Plan: Clickable Home Service Cards & Scroll to Top on Navigation
 
 ### Overview
-This plan implements three key changes:
-1. Replace the hero background with the uploaded office image
-2. Add "Get Started" buttons to service cards linking to the contact form with pre-selected service
-3. Enable the contact form to read URL parameters and auto-select the service
+This plan implements two improvements:
+1. Make the 4 service cards on the Home page clickable, linking to the contact form with pre-selected services
+2. Add automatic scroll-to-top behavior when navigating between pages
 
 ---
 
-### Task 1: Update Hero Background Image
+### Task 1: Make Home Page Service Cards Clickable
 
-**Action:** Copy the uploaded image and update the import in Index.tsx
+**Current State:**
+- The `quickServices` array in `src/pages/Index.tsx` has 4 service cards
+- The `ServiceCard` component already supports `serviceSlug` and `showGetStarted` props (added in previous implementation)
+- The contact form already reads URL parameters and auto-selects services
 
-**Steps:**
-1. Copy `user-uploads://Hero-background.jpeg` to `src/assets/hero-bg.jpg` (replaces current AI-generated image)
-2. No code changes needed in Index.tsx since the import path remains the same
+**Solution:**
+Add `serviceSlug` and `showGetStarted: true` to each service in the `quickServices` array
 
-**Result:** The hero section will display the vibrant cyber café office image showing the workspace with computers, printers, and the branded environment.
+**Changes to `src/pages/Index.tsx`:**
 
----
-
-### Task 2: Add "Get Started" Buttons to Service Cards
-
-**Changes to `src/components/ServiceCard.tsx`:**
-
-Add new optional props and a clickable button:
-- `serviceSlug?: string` - URL parameter value for the service
-- `showGetStarted?: boolean` - Whether to show the "Get Started" button
-
-**Updated ServiceCard structure:**
 ```typescript
-interface ServiceCardProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  variant?: "primary" | "accent";
-  image?: string;
-  serviceSlug?: string;      // NEW
-  showGetStarted?: boolean;  // NEW
-}
-```
-
-Add a "Get Started" button at the bottom of each card that links to `/contact?service={serviceSlug}`:
-```tsx
-{showGetStarted && serviceSlug && (
-  <Link 
-    to={`/contact?service=${serviceSlug}`}
-    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80"
-  >
-    Get Started <ArrowRight className="h-4 w-4" />
-  </Link>
-)}
-```
-
-**Changes to `src/pages/Services.tsx`:**
-
-Add `serviceSlug` and `showGetStarted` props to all service data arrays:
-
-| Service Category | Example Service Slugs |
-|-----------------|----------------------|
-| Government Services | `passport-application`, `kra-services`, `helb-application`, `ecitizen-support` |
-| Design Services | `certificate-design`, `logo-design`, `poster-design`, `wedding-cards` |
-| Printing Services | `large-format-printing`, `bulk-printing`, `business-cards`, `document-printing` |
-| Branding Services | `tshirt-branding`, `mug-branding`, `corporate-gifts` |
-
----
-
-### Task 3: Update Contact Form with URL Parameter Reading
-
-**Changes to `src/components/ContactForm.tsx`:**
-
-1. **Add imports for URL parameter handling:**
-```typescript
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-```
-
-2. **Add extended service options** to cover specific services from the Services page:
-```typescript
-const serviceOptions = [
-  // Government Services
-  { value: "passport-application", label: "Passport Application Assistance" },
-  { value: "birth-death-certificate", label: "Birth/Death Certificate Assistance" },
-  { value: "helb-application", label: "HELB Application Support" },
-  { value: "kra-services", label: "KRA Services Assistance" },
-  { value: "business-registration", label: "Business Name Registration" },
-  { value: "company-registration", label: "Company Registration Support" },
-  { value: "business-permit", label: "Single Business Permit Support" },
-  { value: "ecitizen-support", label: "eCitizen Account Support" },
-  { value: "ntsa-services", label: "NTSA Services Assistance" },
-  { value: "boma-yangu", label: "Boma Yangu Assistance" },
-  { value: "nhif-nssf", label: "NHIF/SHIF/NSSF Assistance" },
-  { value: "agpo-certificate", label: "AGPO Certificate Assistance" },
-  
-  // Design Services
-  { value: "certificate-design", label: "Award Certificate Design" },
-  { value: "poster-design", label: "Posters & Flyers Design" },
-  { value: "eulogy-design", label: "Eulogy Design" },
-  { value: "greeting-cards", label: "Love Cards & Greeting Cards" },
-  { value: "brochure-design", label: "Brochure Design" },
-  { value: "wedding-cards", label: "Wedding Card Design" },
-  { value: "logo-design", label: "Logo Design" },
-  { value: "banner-design", label: "Sticker & Banner Design" },
-  { value: "letterhead-design", label: "Letterhead Design" },
-  { value: "company-profile", label: "Company Profile Design" },
-  { value: "id-card-design", label: "ID Card Design" },
-  
-  // Printing Services
-  { value: "large-format-printing", label: "Large Format Printing" },
-  { value: "bulk-printing", label: "Bulk Printing" },
-  { value: "certificate-printing", label: "Certificate Printing" },
-  { value: "business-cards", label: "Business Card Printing" },
-  { value: "flyer-printing", label: "Flyers & Brochures Printing" },
-  { value: "wedding-printing", label: "Wedding Cards Printing" },
-  { value: "profile-printing", label: "Company Profiles Printing" },
-  { value: "document-printing", label: "Document Printing" },
-  { value: "scanning-copying", label: "Scanning & Photocopying" },
-  { value: "binding-lamination", label: "Binding & Lamination" },
-  
-  // Branding Services
-  { value: "tshirt-branding", label: "T-Shirt Branding" },
-  { value: "mug-branding", label: "Mug/Cup Branding" },
-  { value: "corporate-gifts", label: "Corporate Gift Branding" },
-  { value: "event-branding", label: "Event Branding" },
-  { value: "hoodie-branding", label: "Hoodie Branding" },
-  { value: "caps-bags", label: "Caps & Bags Branding" },
-  
-  // General
-  { value: "general", label: "General Inquiry" },
+const quickServices = [
+  {
+    icon: FileText,
+    title: "Online Application Assistance",
+    description: "eCitizen, KRA, HELB, NTSA, Passport & more government services",
+    variant: "accent" as const,
+    image: onlineServicesImg,
+    serviceSlug: "ecitizen-support",      // ADD
+    showGetStarted: true,                  // ADD
+  },
+  {
+    icon: Palette,
+    title: "Graphic Design",
+    description: "Logos, posters, certificates, brochures & branding materials",
+    variant: "primary" as const,
+    image: designServicesImg,
+    serviceSlug: "logo-design",           // ADD
+    showGetStarted: true,                  // ADD
+  },
+  {
+    icon: Printer,
+    title: "Printing Services",
+    description: "Documents, banners, business cards & large format printing",
+    variant: "primary" as const,
+    image: printingServicesImg,
+    serviceSlug: "document-printing",     // ADD
+    showGetStarted: true,                  // ADD
+  },
+  {
+    icon: Shield,
+    title: "Branding & Merchandise",
+    description: "Custom t-shirts, mugs, caps & corporate gifts",
+    variant: "accent" as const,
+    image: brandingServicesImg,
+    serviceSlug: "tshirt-branding",       // ADD
+    showGetStarted: true,                  // ADD
+  },
 ];
 ```
 
-3. **Read URL parameters on mount:**
-```typescript
-const [searchParams] = useSearchParams();
+**User Flow:**
+1. User visits Home page
+2. Sees 4 service cards with "Get Started" links
+3. Clicks "Get Started" on any card
+4. Redirected to `/contact?service={slug}`
+5. Contact form loads with the service pre-selected
 
-useEffect(() => {
-  const serviceParam = searchParams.get("service");
-  if (serviceParam) {
-    // Check if the service parameter matches a valid option
-    const validService = serviceOptions.find(opt => opt.value === serviceParam);
-    if (validService) {
-      setFormData(prev => ({ ...prev, service: serviceParam }));
-    }
-  }
-}, [searchParams]);
+---
+
+### Task 2: Scroll to Top on Navigation
+
+**Current State:**
+- There is a `ScrollToTop` component in `src/components/ScrollToTop.tsx`, but it's a **floating button** that appears when the user scrolls down
+- This button should NOT be modified (as per requirements)
+- Currently, navigating between pages does not scroll to top
+
+**Solution:**
+Create a new `ScrollToTopOnNavigation` component that uses React Router's `useLocation` hook to detect route changes and automatically scrolls to top
+
+**New File: `src/components/ScrollToTopOnNavigation.tsx`**
+
+```typescript
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export function ScrollToTopOnNavigation() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Scroll to top when the route changes
+    window.scrollTo({
+      top: 0,
+      behavior: "instant", // Use instant for immediate response
+    });
+  }, [pathname]);
+
+  return null; // This component doesn't render anything
+}
+```
+
+**Update `src/components/Layout.tsx`:**
+
+```typescript
+import { ReactNode } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import FloatingWhatsApp from "./FloatingWhatsApp";
+import { ScrollToTop } from "./ScrollToTop";
+import { ScrollToTopOnNavigation } from "./ScrollToTopOnNavigation";  // ADD
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps) => {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <ScrollToTopOnNavigation />  {/* ADD - invisible, triggers on route change */}
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
+      <FloatingWhatsApp />
+      <ScrollToTop />  {/* Existing floating button - unchanged */}
+    </div>
+  );
+};
+
+export default Layout;
 ```
 
 ---
@@ -155,29 +138,32 @@ useEffect(() => {
 
 | File | Changes |
 |------|---------|
-| `src/assets/hero-bg.jpg` | Replace with uploaded office image |
-| `src/components/ServiceCard.tsx` | Add `serviceSlug`, `showGetStarted` props, add "Get Started" link |
-| `src/pages/Services.tsx` | Add `serviceSlug` and `showGetStarted: true` to all service items |
-| `src/components/ContactForm.tsx` | Add `useSearchParams`, expand service options, auto-select from URL |
-
----
-
-### User Flow Example
-
-1. User visits `/services` page
-2. User sees "Passport Application Assistance" card with "Get Started" link
-3. User clicks "Get Started"
-4. User is redirected to `/contact?service=passport-application`
-5. Contact form loads with "Passport Application Assistance" pre-selected in the dropdown
-6. User fills in name, email, phone, and message
-7. User submits form, WhatsApp opens with pre-filled message
+| `src/pages/Index.tsx` | Add `serviceSlug` and `showGetStarted` to quickServices array |
+| `src/components/ScrollToTopOnNavigation.tsx` | **NEW FILE** - Auto scroll on route change |
+| `src/components/Layout.tsx` | Import and use `ScrollToTopOnNavigation` component |
 
 ---
 
 ### Technical Notes
 
-1. **Backward Compatibility:** The new props are optional, so existing ServiceCard usage continues to work
-2. **URL Encoding:** Service slugs use URL-safe characters (lowercase, hyphens)
-3. **Validation:** The form validates that URL parameters match valid service options before auto-selecting
-4. **No Breaking Changes:** All existing functionality is preserved
+1. **No Header/Footer Changes Needed**: The scroll-to-top behavior is handled at the Layout level, so all navigation links (header, footer, and any other page links) automatically trigger the scroll
+2. **Instant vs Smooth Scroll**: Using `behavior: "instant"` for route changes provides immediate feedback. The existing floating button uses `behavior: "smooth"` for manual scrolling
+3. **Separation of Concerns**: The new component is separate from the existing `ScrollToTop` button, keeping the codebase clean and maintaining single responsibility
+4. **Backward Compatibility**: All existing functionality remains intact
+5. **Mobile Menu Compatibility**: The mobile menu closes on navigation (already implemented in Header.tsx), and the new scroll behavior doesn't interfere with it
+
+---
+
+### Expected User Experience
+
+**Service Card Flow:**
+- Home page service cards now have "Get Started" links
+- Clicking redirects to contact page with service pre-selected
+- User can fill remaining form fields and submit via WhatsApp
+
+**Navigation Scroll:**
+- User scrolls down on Home page
+- Clicks "About" in header or footer
+- Page navigates to About and immediately scrolls to top
+- Works for all navigation links across the site
 
