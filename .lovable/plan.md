@@ -1,136 +1,97 @@
 
 
-## Implementation Plan: Clickable Home Service Cards & Scroll to Top on Navigation
+## Implementation Plan: Footer Navigation Fixes
 
 ### Overview
-This plan implements two improvements:
-1. Make the 4 service cards on the Home page clickable, linking to the contact form with pre-selected services
-2. Add automatic scroll-to-top behavior when navigating between pages
+Based on my analysis, here's what needs to be fixed:
+
+| Issue | Current State | Required Change |
+|-------|---------------|-----------------|
+| Footer "Home" link | Already functional with `<Link to="/">` and `ScrollToTopOnNavigation` | Verify functionality - likely already works |
+| Branding & Merchandise image | Already implemented with `branding-merchandise.jpg` | Already complete |
+| Footer "Online Services" links | All link to `/services` | Change to `/contact?service={slug}` |
 
 ---
 
-### Task 1: Make Home Page Service Cards Clickable
+### Task 1: Verify Footer "Home" Link (Already Working)
 
-**Current State:**
-- The `quickServices` array in `src/pages/Index.tsx` has 4 service cards
-- The `ServiceCard` component already supports `serviceSlug` and `showGetStarted` props (added in previous implementation)
-- The contact form already reads URL parameters and auto-selects services
+**Current Implementation:**
+- The Home link uses `<Link to="/">` which is the correct React Router pattern
+- The `ScrollToTopOnNavigation` component in Layout.tsx triggers scroll-to-top on every route change
+- This should already be working correctly
 
-**Solution:**
-Add `serviceSlug` and `showGetStarted: true` to each service in the `quickServices` array
-
-**Changes to `src/pages/Index.tsx`:**
-
-```typescript
-const quickServices = [
-  {
-    icon: FileText,
-    title: "Online Application Assistance",
-    description: "eCitizen, KRA, HELB, NTSA, Passport & more government services",
-    variant: "accent" as const,
-    image: onlineServicesImg,
-    serviceSlug: "ecitizen-support",      // ADD
-    showGetStarted: true,                  // ADD
-  },
-  {
-    icon: Palette,
-    title: "Graphic Design",
-    description: "Logos, posters, certificates, brochures & branding materials",
-    variant: "primary" as const,
-    image: designServicesImg,
-    serviceSlug: "logo-design",           // ADD
-    showGetStarted: true,                  // ADD
-  },
-  {
-    icon: Printer,
-    title: "Printing Services",
-    description: "Documents, banners, business cards & large format printing",
-    variant: "primary" as const,
-    image: printingServicesImg,
-    serviceSlug: "document-printing",     // ADD
-    showGetStarted: true,                  // ADD
-  },
-  {
-    icon: Shield,
-    title: "Branding & Merchandise",
-    description: "Custom t-shirts, mugs, caps & corporate gifts",
-    variant: "accent" as const,
-    image: brandingServicesImg,
-    serviceSlug: "tshirt-branding",       // ADD
-    showGetStarted: true,                  // ADD
-  },
-];
-```
-
-**User Flow:**
-1. User visits Home page
-2. Sees 4 service cards with "Get Started" links
-3. Clicks "Get Started" on any card
-4. Redirected to `/contact?service={slug}`
-5. Contact form loads with the service pre-selected
+**No changes needed** - The existing implementation is correct.
 
 ---
 
-### Task 2: Scroll to Top on Navigation
+### Task 2: Branding & Merchandise Image (Already Complete)
+
+**Current Implementation:**
+- Image exists at `src/assets/services/branding-merchandise.jpg`
+- It's imported and used in Services.tsx at line 43
+- The `ServiceSectionHeader` component displays it at line 476-480
+
+**No changes needed** - The image is already in place.
+
+---
+
+### Task 3: Update Footer "Online Services" Links
 
 **Current State:**
-- There is a `ScrollToTop` component in `src/components/ScrollToTop.tsx`, but it's a **floating button** that appears when the user scrolls down
-- This button should NOT be modified (as per requirements)
-- Currently, navigating between pages does not scroll to top
+All 6 links currently point to `/services`:
+- Passport Applications
+- KRA Services  
+- HELB Applications
+- NTSA Services
+- Business Registration
+- eCitizen Support
 
-**Solution:**
-Create a new `ScrollToTopOnNavigation` component that uses React Router's `useLocation` hook to detect route changes and automatically scrolls to top
+**Required Change:**
+Update each link to navigate to the Contact page with the appropriate service pre-selected using URL parameters.
 
-**New File: `src/components/ScrollToTopOnNavigation.tsx`**
+**File: `src/components/Footer.tsx`**
 
-```typescript
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
-export function ScrollToTopOnNavigation() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    // Scroll to top when the route changes
-    window.scrollTo({
-      top: 0,
-      behavior: "instant", // Use instant for immediate response
-    });
-  }, [pathname]);
-
-  return null; // This component doesn't render anything
-}
-```
-
-**Update `src/components/Layout.tsx`:**
+Lines 54-73 will be updated to:
 
 ```typescript
-import { ReactNode } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import FloatingWhatsApp from "./FloatingWhatsApp";
-import { ScrollToTop } from "./ScrollToTop";
-import { ScrollToTopOnNavigation } from "./ScrollToTopOnNavigation";  // ADD
-
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
-  return (
-    <div className="flex min-h-screen flex-col">
-      <ScrollToTopOnNavigation />  {/* ADD - invisible, triggers on route change */}
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <FloatingWhatsApp />
-      <ScrollToTop />  {/* Existing floating button - unchanged */}
-    </div>
-  );
-};
-
-export default Layout;
+{/* Online Services */}
+<div>
+  <h4 className="font-semibold mb-4">Online Services</h4>
+  <nav className="flex flex-col gap-2">
+    <Link to="/contact?service=passport-application" className="text-sm text-background/70 hover:text-background transition-colors">
+      Passport Applications
+    </Link>
+    <Link to="/contact?service=kra-services" className="text-sm text-background/70 hover:text-background transition-colors">
+      KRA Services
+    </Link>
+    <Link to="/contact?service=helb-application" className="text-sm text-background/70 hover:text-background transition-colors">
+      HELB Applications
+    </Link>
+    <Link to="/contact?service=ntsa-services" className="text-sm text-background/70 hover:text-background transition-colors">
+      NTSA Services
+    </Link>
+    <Link to="/contact?service=business-registration" className="text-sm text-background/70 hover:text-background transition-colors">
+      Business Registration
+    </Link>
+    <Link to="/contact?service=ecitizen-support" className="text-sm text-background/70 hover:text-background transition-colors">
+      eCitizen Support
+    </Link>
+  </nav>
+</div>
 ```
+
+---
+
+### Service Slug Mapping
+
+| Footer Link | Service Slug | Matches ContactForm Option |
+|-------------|--------------|---------------------------|
+| Passport Applications | `passport-application` | Yes (line 44) |
+| KRA Services | `kra-services` | Yes (line 47) |
+| HELB Applications | `helb-application` | Yes (line 46) |
+| NTSA Services | `ntsa-services` | Yes (line 52) |
+| Business Registration | `business-registration` | Yes (line 48) |
+| eCitizen Support | `ecitizen-support` | Yes (line 51) |
 
 ---
 
@@ -138,32 +99,24 @@ export default Layout;
 
 | File | Changes |
 |------|---------|
-| `src/pages/Index.tsx` | Add `serviceSlug` and `showGetStarted` to quickServices array |
-| `src/components/ScrollToTopOnNavigation.tsx` | **NEW FILE** - Auto scroll on route change |
-| `src/components/Layout.tsx` | Import and use `ScrollToTopOnNavigation` component |
+| `src/components/Footer.tsx` | Update 6 "Online Services" links from `/services` to `/contact?service={slug}` |
+
+---
+
+### User Flow After Implementation
+
+1. User clicks "Passport Applications" in footer
+2. Page navigates to `/contact?service=passport-application`
+3. `ScrollToTopOnNavigation` scrolls page to top
+4. `ContactForm` reads URL parameter and auto-selects "Passport Application Assistance"
+5. User sees form with service already selected
 
 ---
 
 ### Technical Notes
 
-1. **No Header/Footer Changes Needed**: The scroll-to-top behavior is handled at the Layout level, so all navigation links (header, footer, and any other page links) automatically trigger the scroll
-2. **Instant vs Smooth Scroll**: Using `behavior: "instant"` for route changes provides immediate feedback. The existing floating button uses `behavior: "smooth"` for manual scrolling
-3. **Separation of Concerns**: The new component is separate from the existing `ScrollToTop` button, keeping the codebase clean and maintaining single responsibility
-4. **Backward Compatibility**: All existing functionality remains intact
-5. **Mobile Menu Compatibility**: The mobile menu closes on navigation (already implemented in Header.tsx), and the new scroll behavior doesn't interfere with it
-
----
-
-### Expected User Experience
-
-**Service Card Flow:**
-- Home page service cards now have "Get Started" links
-- Clicking redirects to contact page with service pre-selected
-- User can fill remaining form fields and submit via WhatsApp
-
-**Navigation Scroll:**
-- User scrolls down on Home page
-- Clicks "About" in header or footer
-- Page navigates to About and immediately scrolls to top
-- Works for all navigation links across the site
+1. **No hash fragments needed** - The current implementation uses query parameters (`?service=`) which the ContactForm already handles via `useSearchParams`
+2. **Auto-scroll already works** - The `ScrollToTopOnNavigation` component triggers on pathname change, and query parameter changes also trigger this
+3. **Form auto-selection works** - The ContactForm's `useEffect` already reads the `service` URL parameter and selects the matching option
+4. **All slugs are valid** - Each slug used in the footer links matches an entry in the `serviceOptions` array in ContactForm
 
