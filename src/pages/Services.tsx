@@ -40,6 +40,7 @@ import {
 import onlineServicesPhoto from "@/assets/services/online-services-photo.jpg";
 import designWorkspace from "@/assets/services/design-workspace.jpg";
 import printingServices from "@/assets/services/printing-services.jpg";
+import brandingMerchandise from "@/assets/services/branding-merchandise.jpg";
 
 const governmentServices = [
   {
@@ -471,11 +472,12 @@ const Services = () => {
 
         {/* Branding & Merchandise */}
         <section className="mb-16">
-          <ScrollFade className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
-              <Shirt className="h-5 w-5 text-accent" />
-            </div>
-            <h2 className="text-2xl font-bold text-foreground">Branding & Merchandise</h2>
+          <ScrollFade>
+            <ServiceSectionHeader
+              image={brandingMerchandise}
+              title="Branding & Merchandise"
+              alt="Custom branded merchandise including t-shirts, mugs, caps, and corporate gifts at Veenz Cyber"
+            />
           </ScrollFade>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {brandingServices.map((service, index) => (
