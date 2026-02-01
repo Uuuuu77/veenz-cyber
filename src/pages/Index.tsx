@@ -38,6 +38,8 @@ const quickServices = [
     description: "eCitizen, KRA, HELB, NTSA, Passport & more government services",
     variant: "accent" as const,
     image: onlineServicesImg,
+    serviceSlug: "ecitizen-support",
+    showGetStarted: true,
   },
   {
     icon: Palette,
@@ -45,6 +47,8 @@ const quickServices = [
     description: "Logos, posters, certificates, brochures & branding materials",
     variant: "primary" as const,
     image: designServicesImg,
+    serviceSlug: "logo-design",
+    showGetStarted: true,
   },
   {
     icon: Printer,
@@ -52,6 +56,8 @@ const quickServices = [
     description: "Documents, banners, business cards & large format printing",
     variant: "primary" as const,
     image: printingServicesImg,
+    serviceSlug: "document-printing",
+    showGetStarted: true,
   },
   {
     icon: Shield,
@@ -59,6 +65,8 @@ const quickServices = [
     description: "Custom t-shirts, mugs, caps & corporate gifts",
     variant: "accent" as const,
     image: brandingServicesImg,
+    serviceSlug: "tshirt-branding",
+    showGetStarted: true,
   },
 ];
 
