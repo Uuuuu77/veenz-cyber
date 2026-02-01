@@ -1,6 +1,6 @@
 # Veenz Cyber Solutions
 
-A modern, responsive website for Veenz Cyber Solutions - your trusted tech and print partner in Embakasi, Nairobi.
+A modern, responsive website for Veenz Cyber Solutions - your trusted tech and print partner in Embakasi West, Nairobi.
 
 ## About
 
