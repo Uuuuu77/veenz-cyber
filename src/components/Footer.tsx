@@ -52,22 +52,22 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Online Services</h4>
             <nav className="flex flex-col gap-2">
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=passport-application" className="text-sm text-background/70 hover:text-background transition-colors">
                 Passport Applications
               </Link>
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=kra-services" className="text-sm text-background/70 hover:text-background transition-colors">
                 KRA Services
               </Link>
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=helb-application" className="text-sm text-background/70 hover:text-background transition-colors">
                 HELB Applications
               </Link>
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=ntsa-services" className="text-sm text-background/70 hover:text-background transition-colors">
                 NTSA Services
               </Link>
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=business-registration" className="text-sm text-background/70 hover:text-background transition-colors">
                 Business Registration
               </Link>
-              <Link to="/services" className="text-sm text-background/70 hover:text-background transition-colors">
+              <Link to="/contact?service=ecitizen-support" className="text-sm text-background/70 hover:text-background transition-colors">
                 eCitizen Support
               </Link>
             </nav>
