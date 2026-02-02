@@ -1,97 +1,62 @@
 
 
-## Implementation Plan: Footer Navigation Fixes
+## Implementation Plan: Auto-Scroll to Contact Form on Service Selection
 
 ### Overview
-Based on my analysis, here's what needs to be fixed:
-
-| Issue | Current State | Required Change |
-|-------|---------------|-----------------|
-| Footer "Home" link | Already functional with `<Link to="/">` and `ScrollToTopOnNavigation` | Verify functionality - likely already works |
-| Branding & Merchandise image | Already implemented with `branding-merchandise.jpg` | Already complete |
-| Footer "Online Services" links | All link to `/services` | Change to `/contact?service={slug}` |
+When users click "Online Services" links in the footer, they navigate to `/contact?service={slug}`. The form already auto-selects the service, but users land at the top of the page and need to scroll down to see the form. This fix will automatically scroll to the form section when a service parameter is present.
 
 ---
 
-### Task 1: Verify Footer "Home" Link (Already Working)
+### Solution
 
-**Current Implementation:**
-- The Home link uses `<Link to="/">` which is the correct React Router pattern
-- The `ScrollToTopOnNavigation` component in Layout.tsx triggers scroll-to-top on every route change
-- This should already be working correctly
+**Modify `src/pages/Contact.tsx`:**
 
-**No changes needed** - The existing implementation is correct.
-
----
-
-### Task 2: Branding & Merchandise Image (Already Complete)
-
-**Current Implementation:**
-- Image exists at `src/assets/services/branding-merchandise.jpg`
-- It's imported and used in Services.tsx at line 43
-- The `ServiceSectionHeader` component displays it at line 476-480
-
-**No changes needed** - The image is already in place.
+1. **Add imports**: Import `useEffect`, `useRef` from React and `useSearchParams` from react-router-dom
+2. **Add ref**: Create a ref for the contact form section
+3. **Add useEffect**: Detect service parameter and scroll to form section with a slight delay
 
 ---
 
-### Task 3: Update Footer "Online Services" Links
+### Code Changes
 
-**Current State:**
-All 6 links currently point to `/services`:
-- Passport Applications
-- KRA Services  
-- HELB Applications
-- NTSA Services
-- Business Registration
-- eCitizen Support
+**File: `src/pages/Contact.tsx`**
 
-**Required Change:**
-Update each link to navigate to the Contact page with the appropriate service pre-selected using URL parameters.
-
-**File: `src/components/Footer.tsx`**
-
-Lines 54-73 will be updated to:
-
+**Add imports (line 1):**
 ```typescript
-{/* Online Services */}
-<div>
-  <h4 className="font-semibold mb-4">Online Services</h4>
-  <nav className="flex flex-col gap-2">
-    <Link to="/contact?service=passport-application" className="text-sm text-background/70 hover:text-background transition-colors">
-      Passport Applications
-    </Link>
-    <Link to="/contact?service=kra-services" className="text-sm text-background/70 hover:text-background transition-colors">
-      KRA Services
-    </Link>
-    <Link to="/contact?service=helb-application" className="text-sm text-background/70 hover:text-background transition-colors">
-      HELB Applications
-    </Link>
-    <Link to="/contact?service=ntsa-services" className="text-sm text-background/70 hover:text-background transition-colors">
-      NTSA Services
-    </Link>
-    <Link to="/contact?service=business-registration" className="text-sm text-background/70 hover:text-background transition-colors">
-      Business Registration
-    </Link>
-    <Link to="/contact?service=ecitizen-support" className="text-sm text-background/70 hover:text-background transition-colors">
-      eCitizen Support
-    </Link>
-  </nav>
-</div>
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 ```
 
----
+**Add ref and scroll logic inside component (after line 32):**
+```typescript
+const Contact = () => {
+  const [searchParams] = useSearchParams();
+  const formSectionRef = useRef<HTMLElement>(null);
 
-### Service Slug Mapping
+  // Auto-scroll to form when arriving with a service parameter
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+    if (serviceParam && formSectionRef.current) {
+      // Small delay to ensure page has rendered
+      const timer = setTimeout(() => {
+        formSectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
-| Footer Link | Service Slug | Matches ContactForm Option |
-|-------------|--------------|---------------------------|
-| Passport Applications | `passport-application` | Yes (line 44) |
-| KRA Services | `kra-services` | Yes (line 47) |
-| HELB Applications | `helb-application` | Yes (line 46) |
-| NTSA Services | `ntsa-services` | Yes (line 52) |
-| Business Registration | `business-registration` | Yes (line 48) |
-| eCitizen Support | `ecitizen-support` | Yes (line 51) |
+  return (
+    // ... rest of component
+```
+
+**Attach ref to form section (line 187):**
+```tsx
+{/* Contact Form Section */}
+<section className="mt-16" ref={formSectionRef}>
+```
 
 ---
 
@@ -99,7 +64,7 @@ Lines 54-73 will be updated to:
 
 | File | Changes |
 |------|---------|
-| `src/components/Footer.tsx` | Update 6 "Online Services" links from `/services` to `/contact?service={slug}` |
+| `src/pages/Contact.tsx` | Add imports, useRef, useEffect for auto-scroll, attach ref to form section |
 
 ---
 
@@ -107,16 +72,19 @@ Lines 54-73 will be updated to:
 
 1. User clicks "Passport Applications" in footer
 2. Page navigates to `/contact?service=passport-application`
-3. `ScrollToTopOnNavigation` scrolls page to top
-4. `ContactForm` reads URL parameter and auto-selects "Passport Application Assistance"
-5. User sees form with service already selected
+3. Page loads and:
+   - `ScrollToTopOnNavigation` scrolls to top (instant)
+   - `ContactForm` auto-selects "Passport Application Assistance"
+   - After 150ms, page smoothly scrolls down to the form section
+4. User sees the form with the service pre-selected, ready to fill in
 
 ---
 
 ### Technical Notes
 
-1. **No hash fragments needed** - The current implementation uses query parameters (`?service=`) which the ContactForm already handles via `useSearchParams`
-2. **Auto-scroll already works** - The `ScrollToTopOnNavigation` component triggers on pathname change, and query parameter changes also trigger this
-3. **Form auto-selection works** - The ContactForm's `useEffect` already reads the `service` URL parameter and selects the matching option
-4. **All slugs are valid** - Each slug used in the footer links matches an entry in the `serviceOptions` array in ContactForm
+1. **150ms delay**: Allows the page to fully render before scrolling. This is necessary because React Router's navigation happens first, then our scroll effect runs
+2. **Smooth scroll**: Uses `behavior: "smooth"` for a polished UX
+3. **Cleanup function**: The `clearTimeout` ensures no memory leaks if the component unmounts quickly
+4. **Block: "start"**: Positions the form section at the top of the viewport
+5. **No interference**: This scroll happens after the initial route-change scroll, so both work together seamlessly
 
