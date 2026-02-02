@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Navigation } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,6 +32,24 @@ const contactInfo = [
 ];
 
 const Contact = () => {
+  const [searchParams] = useSearchParams();
+  const formSectionRef = useRef<HTMLElement>(null);
+
+  // Auto-scroll to form when arriving with a service parameter
+  useEffect(() => {
+    const serviceParam = searchParams.get("service");
+    if (serviceParam && formSectionRef.current) {
+      // Small delay to ensure page has rendered
+      const timer = setTimeout(() => {
+        formSectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+
   return (
     <div className="py-12 md:py-20">
       <div className="container mx-auto px-4">
@@ -184,7 +204,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Form Section */}
-        <section className="mt-16">
+        <section className="mt-16" ref={formSectionRef}>
           <ScrollFade className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
               Send Us a Message
